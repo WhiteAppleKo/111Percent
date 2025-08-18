@@ -9,16 +9,14 @@ namespace _02._Scripts.Commonness
         public BaseController currentTarget;
         public int baseAttackSpeed;
         public int baseAttackDamage;
-        
-        
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
+        
 
         protected string targetPlatform;
         
         private float m_AttackTime = 0;
         private Transform m_FirePoint;
-        private Skill m_CurrentSkill;
         private bool m_UseSkill;
 
         protected virtual void Start()
@@ -34,23 +32,21 @@ namespace _02._Scripts.Commonness
 
         public void BasicAttack(BaseController attacker)
         {
-            if (m_AttackTime < skills[0].attackSpeed)
+            if (skills[0].Fire(m_FirePoint, currentTarget, m_AttackTime))
             {
-                Debug.Log($"{attacker.name} {skills[0].name} 공격 쿨타임");
-                return;
+                m_AttackTime = 0;
             }
-            m_CurrentSkill = skills[0];
-            m_CurrentSkill.Fire(m_FirePoint, currentTarget.GetComponent<BaseController>());
-            m_AttackTime = 0.0f;
         }
 
         private void SkillSetting()
         {
             foreach (Skill skill in skills)
             {
-                skill.attackSpeed *= baseAttackSpeed;
-                skill.attackDamage *= baseAttackDamage;
+                skill.attackData = Data.AttackDataDict[skill.attackType];
+                skill.attackData.attackSpeed *= baseAttackSpeed;
+                skill.attackData.attackDamage *= baseAttackDamage;
                 skill.targetPlatform  = targetPlatform;
+                skill.targetTag = currentTarget.tag;
             }
         }
     }

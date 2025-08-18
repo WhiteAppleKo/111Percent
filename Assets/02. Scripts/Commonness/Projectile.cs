@@ -13,10 +13,43 @@ namespace _02._Scripts.Commonness
         private float m_Duration;
         private float m_Time;
         private Vector2 m_LastVelocity; 
-
-        // speed = 단위초당 목적지 직선거리 기준 속도
-        public void Initialize(Vector2 start, Vector2 control, Vector2 end)
+        private Data.EAttackType m_AttackType;
+        
+        public void Initialize(Vector2 start, Vector2 control, Vector2 end, Data.EAttackType type)
         {
+            switch (type)
+            {
+                case Data.EAttackType.Bezier:
+                    BezierInitialize(start, control, end, type);
+                    break;
+                case Data.EAttackType.Line:
+                    m_AttackType = Data.EAttackType.Line;
+                    break;
+                case Data.EAttackType.Rain:
+                    m_AttackType = Data.EAttackType.Rain;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        private void Update()
+        {
+            switch (m_AttackType)
+            {
+                case Data.EAttackType.Bezier :
+                    BezierUpdate();
+                    break;
+                case Data.EAttackType.Line :
+                    break;
+                case Data.EAttackType.Rain :
+                    break;
+            }
+        }
+
+        private void BezierInitialize(Vector2 start, Vector2 control, Vector2 end, Data.EAttackType type)
+        {
+            m_AttackType = Data.EAttackType.Bezier;
             m_P0 = start; m_P1 = control; m_P2 = end;
 
             float straightDist = Vector2.Distance(start, end);
@@ -25,8 +58,7 @@ namespace _02._Scripts.Commonness
 
             transform.position = start;
         }
-
-        private void Update()
+        private void BezierUpdate()
         {
             if (m_Duration <= 0f) return;
 
