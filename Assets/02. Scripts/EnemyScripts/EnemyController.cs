@@ -2,9 +2,9 @@ using System;
 using _02._Scripts.Commonness;
 using UnityEngine;
 
-namespace _02._Scripts.Player_Control
+namespace _02._Scripts.EnemyScripts
 {
-    public class PlayerController : BaseController
+    public class EnemyController : BaseController
     {
         
     }
