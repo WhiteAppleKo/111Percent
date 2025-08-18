@@ -5,32 +5,40 @@ namespace _02._Scripts.Commonness
 {
     public class BaseController : MonoBehaviour
     {
-        public int maxHitPoint;
-        // 전투 이벤트
-        public Action<BaseController, int> onDamaged; // (피격자, 피해량)
-        public Action<BaseController> onDied;
+        public ClampInt Health { get; private set; }
         
-        private int m_CurrentHitPoint;
         private BaseBow m_Bow;
         private Vector2 m_MoveVector;
         
         public void TakeDamage(int damage)
         {
-            m_CurrentHitPoint = Mathf.Clamp(m_CurrentHitPoint - damage, 0, maxHitPoint);
-            Debug.Log(m_CurrentHitPoint);
-            onDamaged?.Invoke(this, damage);
-
-            if (m_CurrentHitPoint <= 0)
-            {
-                Debug.Log($"{this.name} 죽음");
-                onDied?.Invoke(this);
-            }
+            Health.Decrease(damage);
         }
         
-        protected virtual void Start()
+        protected virtual void Awake()
         {
-            m_CurrentHitPoint = maxHitPoint;
+            InitializeStatus();
             m_Bow = GetComponentInChildren<BaseBow>();
+        }
+
+        private void InitializeStatus()
+        {
+            Health = new ClampInt(min: 0, max: 100, initial: 100);
+        }
+
+        private void OnEnable()
+        {
+            Health.Events.onMinReached += Die;
+        }
+
+        private void OnDisable()
+        {
+            Health.Events.onMinReached -= Die;
+        }
+        
+        private void Die(int prev, int current)
+        {
+            Debug.Log($"{name} 사망");
         }
 
         protected virtual void Update()

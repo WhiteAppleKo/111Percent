@@ -256,7 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4055dc7b5447f488050266ea5e2021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoint: 5
 --- !u!58 &98839748
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -649,7 +648,7 @@ MonoBehaviour:
   baseAttackSpeed: 1
   baseAttackDamage: 1
   skills:
-  - {fileID: 6026943266169340920, guid: e887589473c4d2546a7fd26347c9cc36, type: 3}
+  - {fileID: 2720227178368316705, guid: e887589473c4d2546a7fd26347c9cc36, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e6f0e3ac9f0674bbf0047715dfc5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoint: 5
 --- !u!61 &832889530
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1296,7 +1294,7 @@ MonoBehaviour:
   baseAttackSpeed: 1
   baseAttackDamage: 1
   skills:
-  - {fileID: 6026943266169340920, guid: 21c01deace4974f4cb93a19bdc940745, type: 3}
+  - {fileID: 2720227178368316705, guid: 21c01deace4974f4cb93a19bdc940745, type: 3}
 --- !u!1 &1633598173
 GameObject:
   m_ObjectHideFlags: 0

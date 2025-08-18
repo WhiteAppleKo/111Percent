@@ -1,4 +1,5 @@
 using System;
+using _02._Scripts.Commonness.Attack;
 using _02._Scripts.EnemyScripts;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace _02._Scripts.Commonness
     {
         public BaseController currentTarget;
         public int baseAttackSpeed;
-        public int baseAttackDamage;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
         
@@ -21,7 +21,7 @@ namespace _02._Scripts.Commonness
 
         protected virtual void Start()
         {
-            SkillSetting();
+            SkillTargetSetting();
             m_FirePoint = gameObject.transform;
         }
 
@@ -32,19 +32,19 @@ namespace _02._Scripts.Commonness
 
         public void BasicAttack(BaseController attacker)
         {
-            if (skills[0].Fire(m_FirePoint, currentTarget, m_AttackTime))
+            if (skills[0].CanFire(m_FirePoint, currentTarget, m_AttackTime))
             {
                 m_AttackTime = 0;
             }
         }
 
-        private void SkillSetting()
+        private void SkillTargetSetting()
         {
             foreach (Skill skill in skills)
             {
                 skill.attackData = Data.AttackDataDict[skill.attackType];
-                skill.attackData.attackSpeed *= baseAttackSpeed;
-                skill.attackData.attackDamage *= baseAttackDamage;
+                skill.attackData.attackCooldown *= baseAttackSpeed;
+                skill.attackData.attackDamage *= skill.baseAttackDamage;
                 skill.targetPlatform  = targetPlatform;
                 skill.targetTag = currentTarget.tag;
             }
