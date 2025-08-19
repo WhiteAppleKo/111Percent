@@ -62,8 +62,6 @@ namespace _02._Scripts.EnemyScripts
         public void SelectAction()
         {
             float randomValue = Random.Range(0.0f, m_TotalWeight);
-            Debug.Log("가중치 랜덤 값 : " + randomValue);
-            Debug.Log("가중치 기준 값 : " + weight);
             if (randomValue < weight)
             {
                 ChangeState<MoveState>();

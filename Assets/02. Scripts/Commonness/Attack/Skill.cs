@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _02._Scripts.Commonness.Attack
 {
@@ -14,10 +15,12 @@ namespace _02._Scripts.Commonness.Attack
         public Data.EAttackType attackType;
         public Data.AttackData attackData;
         public float projectileSpeed;
-        public float baseAttackDamage;
+        
         public float skillCooldown;
         public bool isUsable;
-
+        
+        private float m_BaseAttackDamage;
+        public Arrow arrow;
         public void SkillInit(float baseAttackSpeed, string targetPlatform, string tag)
         {
             SkillSetting(baseAttackSpeed, targetPlatform, tag);
@@ -25,9 +28,11 @@ namespace _02._Scripts.Commonness.Attack
         
         protected virtual void SkillSetting(float baseAttackSpeed, string targetPlatform, string tag)
         {
+            arrow = GetComponent<Arrow>();
             attackData = Data.AttackDataDict[attackType];
             attackData.attackCooldown *= baseAttackSpeed * skillCooldown;
-            attackData.attackDamage *= baseAttackDamage;
+            m_BaseAttackDamage = arrow.baseArrowDamage;
+            attackData.attackDamage *= m_BaseAttackDamage;
             this.targetPlatform  = targetPlatform;
             targetTag = tag;
             isUsable = true;

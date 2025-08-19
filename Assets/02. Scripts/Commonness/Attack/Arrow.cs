@@ -1,18 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Arrow : MonoBehaviour
+namespace _02._Scripts.Commonness.Attack
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Arrow : MonoBehaviour
     {
+        public int baseArrowDamage;
+        public float searchRadius;
         
-    }
+        private Skill m_SkillType;
+        [SerializeField]
+        protected bool isAreaOfEffect = true;
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void Awake()
+        {
+            m_SkillType = GetComponent<Skill>();
+        }
+
+        public void ReachedWall(string  targetTag, Collider2D col)
+        {
+            Debug.Log("ReachedWall");
+            if (isAreaOfEffect)
+            {
+                FindTarget(targetTag);
+            }
+        }
+
+        protected virtual void FindTarget(string targetTag)
+        {
+            
+        }
         
+        protected virtual void AreaOfEffect() { }
     }
 }

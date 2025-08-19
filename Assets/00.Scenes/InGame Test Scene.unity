@@ -273,7 +273,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -649,9 +649,8 @@ MonoBehaviour:
   currentTarget: {fileID: 98839747}
   baseAttackSpeed: 0.65
   skills:
-  - {fileID: 2720227178368316705, guid: e887589473c4d2546a7fd26347c9cc36, type: 3}
-  - {fileID: 5160487877085909728, guid: 55086b63e96d7df438d15f61d8eedd04, type: 3}
-  - {fileID: -8739731797644283742, guid: 5efe4fd79b29e08439a45b78feb39b13, type: 3}
+  - {fileID: -3680187824165235251, guid: 29364a2aab178b6458e45fdfeb6bc568, type: 3}
+  - {fileID: -5927257395995744919, guid: f279ae60fca9e354ca20ec19172f2f69, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1600,8 @@ MonoBehaviour:
   currentTarget: {fileID: 832889529}
   baseAttackSpeed: 0.65
   skills:
-  - {fileID: 2720227178368316705, guid: 21c01deace4974f4cb93a19bdc940745, type: 3}
+  - {fileID: -3680187824165235251, guid: b585aabac8871ca4f9a4c0901cca7d5d, type: 3}
+  - {fileID: -3680187824165235251, guid: b585aabac8871ca4f9a4c0901cca7d5d, type: 3}
 --- !u!1 &1619029542
 GameObject:
   m_ObjectHideFlags: 0

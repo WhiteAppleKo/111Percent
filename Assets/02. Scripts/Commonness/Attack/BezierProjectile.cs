@@ -56,7 +56,7 @@ namespace _02._Scripts.Commonness.Attack
 
             }else
             {
-                transform.Translate(m_LastVelocity * (projectileSpeed * Time.deltaTime), Space.World);
+                transform.Translate(m_LastVelocity * (projectileSpeed * Time.deltaTime));
             }
         }
         
@@ -70,6 +70,7 @@ namespace _02._Scripts.Commonness.Attack
 
             var proj = Instantiate(prefab, start, Quaternion.identity);
             proj.attackData = atkData;
+            proj.arrow = proj.GetComponent<Arrow>();
             proj.Initialize(start, controlPoint, end);
         }
         
@@ -77,6 +78,7 @@ namespace _02._Scripts.Commonness.Attack
         {
             if (col.CompareTag(targetPlatform) || col.CompareTag("Platform"))
             {
+                arrow.ReachedWall(targetTag, col);
                 Destroy(gameObject);
             }
 

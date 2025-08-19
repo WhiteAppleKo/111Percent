@@ -5,6 +5,7 @@ namespace _02._Scripts.Commonness.Attack
 {
     public class SelectSkillData : MonoBehaviour
     {
+        public Arrow[] arrows;
         public class SkillSet
         {
             public Arrow arrow;
