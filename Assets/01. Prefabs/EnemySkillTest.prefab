@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4696122801756854092}
   - component: {fileID: 1219088949579312667}
-  - component: {fileID: 2720227178368316705}
+  - component: {fileID: 5160487877085909728}
   - component: {fileID: 2328840456352422143}
   - component: {fileID: 5698184056649422923}
   m_Layer: 0
-  m_Name: TestProjectile2
+  m_Name: EnemySkillTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2720227178368316705
+--- !u!114 &5160487877085909728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,15 +96,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7448247704121694057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 48f2bbda17e88654cb07a6c6f36e14c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlatform: PlayerPlatform
   targetTag: Player
-  attackType: 0
-  speed: 0
-  damagePercent: 1
-  prefab: {fileID: 2720227178368316705}
+  attackType: 1
+  projectileSpeed: 15
+  baseAttackDamage: 2
+  skillCooldown: 3
+  isUsable: 0
+  prefab: {fileID: 5160487877085909728}
 --- !u!58 &2328840456352422143
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using _02._Scripts.Commonness.Attack;
-using _02._Scripts.EnemyScripts;
 using UnityEngine;
 
 namespace _02._Scripts.Commonness
@@ -8,7 +8,7 @@ namespace _02._Scripts.Commonness
     public abstract class BaseBow : MonoBehaviour
     {
         public BaseController currentTarget;
-        public int baseAttackSpeed;
+        public float baseAttackSpeed;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
         
@@ -21,7 +21,7 @@ namespace _02._Scripts.Commonness
 
         protected virtual void Start()
         {
-            SkillTargetSetting();
+            SkillInitialize();
             m_FirePoint = gameObject.transform;
         }
 
@@ -30,23 +30,34 @@ namespace _02._Scripts.Commonness
             m_AttackTime += Time.deltaTime;
         }
 
-        public void BasicAttack(BaseController attacker)
+        public void Attack(BaseController attacker, Skill skill)
         {
-            if (skills[0].CanFire(m_FirePoint, currentTarget, m_AttackTime))
+            if (m_AttackTime < baseAttackSpeed)
             {
-                m_AttackTime = 0;
+                return;
             }
+            skill.CanFire(m_FirePoint, currentTarget);
+            m_AttackTime = 0;
+            StartCoroutine(co_CoolDown(skill));
         }
 
-        private void SkillTargetSetting()
+        private IEnumerator co_CoolDown(Skill skill)
+        {
+            skill.isUsable = false;
+            var leftCooldown = skill.attackData.attackCooldown;
+            while (leftCooldown >= 0)
+            {
+                leftCooldown -= Time.deltaTime;
+                yield return null;
+            }
+            skill.isUsable = true;
+        }
+
+        private void SkillInitialize()
         {
             foreach (Skill skill in skills)
             {
-                skill.attackData = Data.AttackDataDict[skill.attackType];
-                skill.attackData.attackCooldown *= baseAttackSpeed;
-                skill.attackData.attackDamage *= skill.baseAttackDamage;
-                skill.targetPlatform  = targetPlatform;
-                skill.targetTag = currentTarget.tag;
+                skill.SkillInit(baseAttackSpeed, targetPlatform, currentTarget.tag);
             }
         }
     }

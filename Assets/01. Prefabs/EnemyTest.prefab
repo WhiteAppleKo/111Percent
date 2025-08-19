@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2328840456352422143}
   - component: {fileID: 5698184056649422923}
   m_Layer: 0
-  m_Name: TestProjectile
+  m_Name: EnemyTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlatform: EnemyPlatform
-  targetTag: Enemy
+  targetPlatform: PlayerPlatform
+  targetTag: Player
   attackType: 0
   projectileSpeed: 5
-  baseAttackDamage: 5
+  baseAttackDamage: 1
   skillCooldown: 1
   prefab: {fileID: 2720227178368316705}
 --- !u!58 &2328840456352422143

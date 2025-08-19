@@ -6,9 +6,9 @@ namespace _02._Scripts.Commonness
     public class BaseController : MonoBehaviour
     {
         public ClampInt Health { get; private set; }
-        
-        private BaseBow m_Bow;
-        private Vector2 m_MoveVector;
+        public BaseController m_Self;
+        public BaseBow Bow {get; private set;}
+        public bool isMoving = false;
         
         public void TakeDamage(int damage)
         {
@@ -18,11 +18,13 @@ namespace _02._Scripts.Commonness
         protected virtual void Awake()
         {
             InitializeStatus();
-            m_Bow = GetComponentInChildren<BaseBow>();
+            Bow = GetComponentInChildren<BaseBow>();
+            m_Self = this;
         }
 
-        private void InitializeStatus()
+        protected virtual void InitializeStatus()
         {
+            m_Self = this;
             Health = new ClampInt(min: 0, max: 100, initial: 100);
         }
 
@@ -40,15 +42,39 @@ namespace _02._Scripts.Commonness
         {
             Debug.Log($"{name} 사망");
         }
+        private void MoveAsset1()
+        {
+            Vector2 dir = Bow.currentTarget.transform.position - transform.position;
+            dir.Normalize();
+            var myPos = transform.position;
+            myPos.x += dir.x;
+            transform.position = myPos;
+        }
 
-        protected virtual void Update()
+        private void MoveAsset2()
         {
             
-            if(m_MoveVector.sqrMagnitude < 0.005f)
+        }
+
+        private void SetMoveAsset()
+        {
+            if (Bow.skills[1] == null) return;
+            Bow.skills[1].onSkillUsed += MoveAsset1;
+        }
+
+        private bool m_IsSetMoveAsset;
+        protected virtual void Update()
+        {
+            if (Bow != null && m_IsSetMoveAsset == false)
             {
-                if (m_Bow.skills[0])
+                SetMoveAsset();
+                m_IsSetMoveAsset = true;
+            }
+            if(isMoving == false)
+            {
+                if (Bow.skills[0].isUsable)
                 {
-                    m_Bow.BasicAttack(this);
+                    Bow.Attack(this, Bow.skills[0]);
                 }
             }
         }

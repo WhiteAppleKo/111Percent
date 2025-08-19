@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4696122801756854092}
   - component: {fileID: 1219088949579312667}
-  - component: {fileID: 2720227178368316705}
   - component: {fileID: 2328840456352422143}
   - component: {fileID: 5698184056649422923}
+  - component: {fileID: -8739731797644283742}
   m_Layer: 0
-  m_Name: TestProjectile
+  m_Name: EnemySkillTest 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.037095547, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,25 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2720227178368316705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7448247704121694057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlatform: EnemyPlatform
-  targetTag: Enemy
-  attackType: 0
-  projectileSpeed: 5
-  baseAttackDamage: 5
-  skillCooldown: 1
-  prefab: {fileID: 2720227178368316705}
 --- !u!58 &2328840456352422143
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,3 +149,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8739731797644283742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448247704121694057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af94e1818c360bc4f8c9fe3e825ef12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPlatform: 
+  targetTag: 
+  attackType: 0
+  projectileSpeed: 15
+  baseAttackDamage: 1
+  skillCooldown: 3
+  isUsable: 0
+  prefab: {fileID: -8739731797644283742}
+  separatedCount: 10
