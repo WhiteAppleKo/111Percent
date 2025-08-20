@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _02._Scripts.Commonness.Attack;
+using _02._Scripts.Commonness.Attack.SkillType;
 using UnityEngine;
 
 namespace _02._Scripts.Commonness
@@ -11,7 +12,6 @@ namespace _02._Scripts.Commonness
         public float baseAttackSpeed;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
-        
 
         protected string targetPlatform;
         
@@ -40,7 +40,8 @@ namespace _02._Scripts.Commonness
             m_AttackTime = 0;
             StartCoroutine(co_CoolDown(skill));
         }
-
+        
+        
         private IEnumerator co_CoolDown(Skill skill)
         {
             skill.isUsable = false;

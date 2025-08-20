@@ -5,10 +5,10 @@ namespace _02._Scripts.Commonness.Attack
 {
     public class SelectSkillData : MonoBehaviour
     {
-        public Arrow[] arrows;
+        public Arrow.Arrow[] arrows;
         public class SkillSet
         {
-            public Arrow arrow;
+            public Arrow.Arrow arrow;
             public int moveAsset;
             public Data.EAttackType attackType;
         }

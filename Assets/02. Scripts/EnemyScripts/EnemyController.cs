@@ -47,7 +47,7 @@ namespace _02._Scripts.EnemyScripts
 
         public void ReInitializeWeight()
         {
-            var myHealth = m_Self.Health?.Ratio;
+            var myHealth = self.Health?.Ratio;
             var playerHealth = GameManager.Instance.controllers[0].Health?.Ratio;
             var healthGap = myHealth - playerHealth;
             if (healthGap > 0.05)

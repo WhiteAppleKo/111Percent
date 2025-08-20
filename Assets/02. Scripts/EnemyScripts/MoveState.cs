@@ -1,4 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
+using _02._Scripts.Commonness;
+using _02._Scripts.Commonness.Attack.SkillType;
+using _02._Scripts.Commonness.NonAttackSkill;
 using UnityEngine;
 
 namespace _02._Scripts.EnemyScripts
@@ -38,6 +42,11 @@ namespace _02._Scripts.EnemyScripts
 
             while (Time.time < end)
             {
+                if (Controller.nonAttackSkill != null && Controller.nonAttackSkill.isUsable)
+                {
+                    Controller.ActiveNonAttackSkill();
+                }
+               
                 m_Rigidbody.velocity = new Vector2(dir * moveSpeed, 0);
                 
                 yield return null;

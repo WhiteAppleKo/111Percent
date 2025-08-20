@@ -1,10 +1,7 @@
-
-
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _02._Scripts.Commonness.Attack
+namespace _02._Scripts.Commonness.Attack.SkillType
 {
     public class RainProjectile : Skill
     {
@@ -17,6 +14,13 @@ namespace _02._Scripts.Commonness.Attack
         private Vector2 m_FinalEnd; 
         private bool m_IsSeparated;
         private Vector2 m_LastVelocity; 
+        private Arrow.Arrow m_CurrentArrow;
+        
+        private void Awake()
+        {
+            attackType = Data.EAttackType.Rain;
+            attackData = Data.AttackDataDict[attackType];
+        }
 
         private void Initialize(Vector2 start, Vector2 end)
         {
@@ -69,7 +73,7 @@ namespace _02._Scripts.Commonness.Attack
             }
         }
 
-        protected override void Fire(Transform attackerBow, BaseController defender, Data.AttackData atkData)
+        protected override void Fire(Transform attackerBow, BaseController defender)
         {
             Vector2 start = attackerBow.position;
             Vector2 end   = defender.transform.position;
@@ -79,29 +83,35 @@ namespace _02._Scripts.Commonness.Attack
 
             var proj = Instantiate(prefab, start, Quaternion.identity);
             
-            proj.attackData       = atkData;
-            proj.targetPlatform   = targetPlatform;
-            proj.targetTag        = targetTag;
-
+            proj.targetPlatform = targetPlatform;
+            proj.targetTag = targetTag;
             proj.m_IsSeparated  = false;
-            proj.m_MiddlePoint  = mid;      // 1구간 종점
-            proj.m_FinalEnd     = end;      // 2구간 종점
-
+            proj.m_MiddlePoint = mid;      // 1구간 종점
+            proj.m_FinalEnd = end;      // 2구간 종점
+            
+            proj.arrow = proj.GetComponent<Arrow.Arrow>();
+            proj.arrow.currentArrowDamage = proj.attackData.attackDamage * proj.arrow.baseArrowDamage;
             // 1구간
             proj.Initialize(start, mid);
+            proj.m_CurrentArrow = proj.arrow;
         }
         
         protected override void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag(targetPlatform) || col.CompareTag("Platform"))
             {
+                if (m_CurrentArrow.isAreaOfEffect)
+                {
+                    arrow.ReachedWall(targetTag, col);
+                }
                 Destroy(gameObject);
             }
 
             if (col.CompareTag(targetTag))
             {
                 var defender = col.GetComponent<BaseController>();
-                defender.TakeDamage((int)(attackData.attackDamage));
+                defender.TakeDamage((int)(m_CurrentArrow.currentArrowDamage));
+                m_CurrentArrow.HitEffect(col);
                 Destroy(gameObject);
             }
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _02._Scripts.Commonness.Attack
+namespace _02._Scripts.Commonness.Attack.SkillType
 {
     public class BezierProjectile : Skill
     {
@@ -9,8 +9,14 @@ namespace _02._Scripts.Commonness.Attack
         private Vector2 m_P0, m_P1, m_P2;
         private float m_Duration;
         private float m_Time;
-        private Vector2 m_LastVelocity; 
+        private Vector2 m_LastVelocity;
+        private Arrow.Arrow m_CurrentArrow;
 
+        private void Awake()
+        {
+            attackType = Data.EAttackType.Bezier;
+            attackData = Data.AttackDataDict[attackType];
+        }
         private void Initialize(Vector2 start, Vector2 control, Vector2 end)
         {
             m_P0 = start; 
@@ -60,7 +66,7 @@ namespace _02._Scripts.Commonness.Attack
             }
         }
         
-        protected override void Fire(Transform attackerBow, BaseController defender, Data.AttackData atkData)
+        protected override void Fire(Transform attackerBow, BaseController defender)
         {
             Vector2 start = (Vector2)attackerBow.transform.position;
             Vector2 end   = (Vector2)defender.transform.position;
@@ -69,23 +75,28 @@ namespace _02._Scripts.Commonness.Attack
             controlPoint.y += 10f;
 
             var proj = Instantiate(prefab, start, Quaternion.identity);
-            proj.attackData = atkData;
-            proj.arrow = proj.GetComponent<Arrow>();
+            proj.arrow = proj.GetComponent<Arrow.Arrow>();
+            proj.arrow.currentArrowDamage = proj.attackData.attackDamage * proj.arrow.baseArrowDamage;
             proj.Initialize(start, controlPoint, end);
+            proj.m_CurrentArrow = proj.arrow;
         }
         
         protected override void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag(targetPlatform) || col.CompareTag("Platform"))
             {
-                arrow.ReachedWall(targetTag, col);
+                if (m_CurrentArrow.isAreaOfEffect)
+                {
+                    arrow.ReachedWall(targetTag, col);
+                }
                 Destroy(gameObject);
             }
 
             if (col.CompareTag(targetTag))
             {
                 var defender = col.GetComponent<BaseController>();
-                defender.TakeDamage((int)(attackData.attackDamage));
+                defender.TakeDamage((int)(m_CurrentArrow.currentArrowDamage));
+                m_CurrentArrow.HitEffect(col);
                 Destroy(gameObject);
             }
         }

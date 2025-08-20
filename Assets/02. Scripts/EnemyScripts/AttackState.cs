@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _02._Scripts.Commonness.Attack;
+using _02._Scripts.Commonness.Attack.SkillType;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

@@ -256,8 +256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4055dc7b5447f488050266ea5e2021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Self: {fileID: 98839747}
+  self: {fileID: 0}
+  nonAttackSkill: {fileID: 0}
+  maxHealth: 0
   isMoving: 0
+  haveBow: 1
 --- !u!50 &98839749
 Rigidbody2D:
   serializedVersion: 4
@@ -320,6 +323,63 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.12}
   m_Size: {x: 0.2, y: 0.48}
   m_Direction: 0
+--- !u!1001 &115406773
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811497714964926585, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882799197773051409, guid: b315a962722567940910ed75db5d1ac1, type: 3}
+      propertyPath: m_Name
+      value: DecoyTotem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b315a962722567940910ed75db5d1ac1, type: 3}
 --- !u!1 &285269579
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +711,7 @@ MonoBehaviour:
   skills:
   - {fileID: -3680187824165235251, guid: 29364a2aab178b6458e45fdfeb6bc568, type: 3}
   - {fileID: -5927257395995744919, guid: f279ae60fca9e354ca20ec19172f2f69, type: 3}
+  - {fileID: -3431844112622426777, guid: 373d9e3dae7945e4e899e30b2bd0a1ec, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,8 +1109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e6f0e3ac9f0674bbf0047715dfc5e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Self: {fileID: 832889529}
+  self: {fileID: 0}
+  nonAttackSkill: {fileID: 0}
+  maxHealth: 0
   isMoving: 0
+  haveBow: 1
   states: []
   weight: 50
   m_TotalWeight: 100
@@ -1602,6 +1666,7 @@ MonoBehaviour:
   skills:
   - {fileID: -3680187824165235251, guid: b585aabac8871ca4f9a4c0901cca7d5d, type: 3}
   - {fileID: -3680187824165235251, guid: b585aabac8871ca4f9a4c0901cca7d5d, type: 3}
+  - {fileID: -3431844112622426777, guid: a5f3187adeb786a49a4f9043d21d7fbe, type: 3}
 --- !u!1 &1619029542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,3 +2111,4 @@ SceneRoots:
   - {fileID: 1108429943}
   - {fileID: 286571540}
   - {fileID: 8789457}
+  - {fileID: 115406773}
