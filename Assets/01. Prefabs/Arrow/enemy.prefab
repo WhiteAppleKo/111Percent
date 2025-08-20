@@ -166,6 +166,8 @@ MonoBehaviour:
   baseArrowDamage: 1
   searchRadius: 0
   isAreaOfEffect: 0
+  coolTime: 1.5
+  sprite: {fileID: 0}
   m_OverlapCapacity: 32
   effectDuration: 1
 --- !u!114 &-3431844112622426777
@@ -187,3 +189,4 @@ MonoBehaviour:
   isUsable: 0
   arrow: {fileID: 5647202871171864707}
   prefab: {fileID: -3431844112622426777}
+  spawnRot: {x: 0, y: 0, z: 0, w: 0}

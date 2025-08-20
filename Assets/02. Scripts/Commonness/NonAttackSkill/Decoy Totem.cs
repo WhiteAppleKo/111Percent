@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Commonness.NonAttackSkill
 {
     public class DecoyTotem : NonAttackSkill
     {
         public DecoyTotem prefab;
+        public Text coolTimeAnnounce;
         private DecoyTotem m_DecoyTotem;
         private BaseController m_DecoyController;
         

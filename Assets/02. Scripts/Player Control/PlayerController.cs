@@ -1,53 +1,71 @@
 using System;
+using System.Collections;
 using _02._Scripts.Commonness;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Player_Control
 {
     public class PlayerController : BaseController
     {
         public float moveSpeed;
+        [Serializable]
+        public class CoolTimeAnnounce
+        {
+            public Image image;
+            public Text text;
+        }
+        public CoolTimeAnnounce coolTimeAnnounce;
         
         private bool m_LeftButtonPressed;
         private bool m_RightButtonPressed;
         private Rigidbody2D m_Rigidbody;
         private Vector2 m_MoveDir;
+        private int m_MoveValue;
 
         protected override void Awake()
         {
             base.Awake();
             m_Rigidbody = GetComponent<Rigidbody2D>();
         }
-
-        public void SkillUse(int skillNumber)
-        {
-            Bow.Attack(this, Bow.skills[skillNumber]);
-        }
-
         public void BoolSet(int dir)
         {
             if (dir == -1)
             {
                 m_LeftButtonPressed = true;
-                Move(-1);
+                onMove?.Invoke(m_LeftButtonPressed);
+                isMoving = true;
+                var rotation = transform.rotation;
+                rotation.y = 180;
+                transform.rotation = rotation;
+                m_MoveValue = -1;
             }
 
             if (dir == 1)
             {
                 m_LeftButtonPressed = false;
-                Move(0);
+                isMoving = false;
+                var rotation = transform.rotation;
+                rotation.y = 0;
+                transform.rotation = rotation;
+                onMove?.Invoke(m_LeftButtonPressed);
+                m_MoveValue = 0;
             }
 
             if (dir == 2)
             {
                 m_RightButtonPressed = true;
-                Move(1);
+                isMoving = true;
+                onMove?.Invoke(m_RightButtonPressed);
+                m_MoveValue = 1;
             }
 
             if (dir == -2)
             {
                 m_RightButtonPressed = false;
-                Move(0);
+                isMoving = false;
+                onMove?.Invoke(m_RightButtonPressed);
+                m_MoveValue = 0;
             }
         }
         
@@ -59,17 +77,35 @@ namespace _02._Scripts.Player_Control
         protected override void Update()
         {
             base.Update();
-            if (m_LeftButtonPressed != m_RightButtonPressed)
+            Move(m_MoveValue);
+        }
+        
+        protected override IEnumerator co_CoolDown(float cooldown)
+        {
+            nonAttackSkill.isUsable = false;
+            var time = cooldown;
+            coolTimeAnnounce.text.text = time.ToString("F1");
+            var block = coolTimeAnnounce.image.color;
+            block = Color.gray;
+            coolTimeAnnounce.image.color = block;
+            while (time > 0)
             {
-                if (m_LeftButtonPressed)
+                if (!animator.IsInTransition(0))
                 {
-                   
+                    AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(0);
+                    if (s.IsName("Attack") && s.normalizedTime >= 1f)
+                    {
+                        animator.SetBool("isAttack", false);
+                    }
                 }
-                else
-                {
-                    
-                }
+                time -= Time.deltaTime;
+                coolTimeAnnounce.text.text = time.ToString("F1");
+                yield return null;
             }
+            nonAttackSkill.isUsable = true;
+            coolTimeAnnounce.text.text = time.ToString(" ");
+            block = Color.white;
+            coolTimeAnnounce.image.color = block;
         }
     }
 }

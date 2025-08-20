@@ -3,6 +3,7 @@ using System.Collections;
 using _02._Scripts.Commonness.Attack;
 using _02._Scripts.Commonness.Attack.SkillType;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Commonness
 {
@@ -12,10 +13,9 @@ namespace _02._Scripts.Commonness
         public float baseAttackSpeed;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
+        public string targetPlatform;
+        public Animator animator;
         
-        protected string targetPlatform;
-        
-        private float m_AttackTime = 0;
         private Transform m_FirePoint;
         private bool m_UseSkill;
 
@@ -24,20 +24,10 @@ namespace _02._Scripts.Commonness
             SkillInitialize();
             m_FirePoint = gameObject.transform;
         }
-
-        protected virtual void Update()
-        {
-            m_AttackTime += Time.deltaTime;
-        }
-
+        
         public void Attack(BaseController attacker, Skill skill)
         {
-            if (m_AttackTime < baseAttackSpeed)
-            {
-                return;
-            }
             skill.CanFire(m_FirePoint, currentTarget);
-            m_AttackTime = 0;
             StartCoroutine(co_CoolDown(skill));
         }
 
@@ -46,9 +36,21 @@ namespace _02._Scripts.Commonness
             currentTarget = target;
             SkillInitialize();
         }
+
+        protected int? FindSkillIndex(Skill skill)
+        {
+            for(int i = 1; i < skills.Length; i++)
+            {
+                if (skills[i] == skill)
+                {
+                    return i;
+                }
+            }
+
+            return null;
+        }
         
-        
-        private IEnumerator co_CoolDown(Skill skill)
+        protected virtual IEnumerator co_CoolDown(Skill skill)
         {
             skill.isUsable = false;
             var leftCooldown = skill.attackData.attackCooldown;

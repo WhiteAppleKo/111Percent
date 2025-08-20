@@ -103,11 +103,12 @@ MonoBehaviour:
   targetPlatform: PlayerPlatform
   targetTag: Player
   projectileSpeed: 15
-  skillCooldown: 2
+  skillCooldown: 8
   isUsable: 0
   arrow: {fileID: 2764520631431860657}
   prefab: {fileID: 7435253375582763256}
   separatedCount: 10
+  spawnRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &2764520631431860657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +125,8 @@ MonoBehaviour:
   baseArrowDamage: 2
   searchRadius: 3
   isAreaOfEffect: 1
+  coolTime: 2
+  sprite: {fileID: 0}
   m_OverlapCapacity: 32
 --- !u!50 &5674287777917940160
 Rigidbody2D:

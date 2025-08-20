@@ -7,6 +7,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
     {
         public RainProjectile prefab;
         public int separatedCount;
+        public Quaternion spawnRot;
         private float m_Duration;
         private float m_Time;
         private Vector2 m_P0, m_P1;
@@ -20,6 +21,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
         {
             attackType = Data.EAttackType.Rain;
             attackData = Data.AttackDataDict[attackType];
+            spawnRot = transform.rotation;
         }
 
         private void Initialize(Vector2 start, Vector2 end)
@@ -54,14 +56,17 @@ namespace _02._Scripts.Commonness.Attack.SkillType
                 m_IsSeparated = true;
                 for (int i = 0; i < separatedCount; i++)
                 {
-                    var projectile = Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
+                    var randomX = Random.Range(-2f, 2f);
+                    var finalEnd = m_FinalEnd;
+                    finalEnd.x -= randomX;
+                    
+                    Vector2 dir = finalEnd - m_MiddlePoint;
+                    Quaternion rot = Quaternion.LookRotation(Vector3.forward, dir); 
+                    var projectile = Instantiate(prefab, gameObject.transform.position, rot);
                     projectile.attackData = attackData;
                     projectile.targetPlatform = targetPlatform;
                     projectile.targetTag = targetTag;
                     projectile.m_IsSeparated = true;
-                    var randomX = Random.Range(-2f, 2f);
-                    var finalEnd = m_FinalEnd;
-                    finalEnd.x -= randomX;
                     projectile.Initialize(m_MiddlePoint, finalEnd);
                     projectile.m_CurrentArrow = projectile.arrow;
                 }

@@ -6,7 +6,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
     public class LineProjectile : Skill
     {
         public LineProjectile prefab;
-        
+        public Quaternion spawnRot;
         private float m_Duration;
         private float m_Time;
         private Vector2 m_P0, m_P1;
@@ -17,6 +17,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
         {
             attackType = Data.EAttackType.Line;
             attackData = Data.AttackDataDict[attackType];
+            spawnRot = transform.rotation;
         }
 
         private void Initialize(Vector2 start, Vector2 end)
@@ -60,7 +61,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
             Vector2 start = (Vector2)attackerBow.transform.position;
             Vector2 end   = (Vector2)defender.transform.position;
             
-            var proj = Instantiate(prefab, start, Quaternion.identity);
+            var proj = Instantiate(prefab, start, prefab.transform.rotation);
             proj.arrow = proj.GetComponent<Arrow.Arrow>();
             proj.arrow.currentArrowDamage = proj.attackData.attackDamage * proj.arrow.baseArrowDamage;
             proj.Initialize(start, end);

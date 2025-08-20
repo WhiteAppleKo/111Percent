@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using _02._Scripts.Commonness;
+using _02._Scripts.Commonness.Attack;
 using Singleton;
 using UnityEngine;
 
@@ -10,23 +12,33 @@ namespace _02._Scripts
         public Action<bool> gameStartEvent;
         // 0번 플레이어 1번 에너미
         public BaseController[] controllers;
+        public SelectSkillData skillSetter;
         private float m_GameTimer;
+        private float m_GameStartCount = 3.0f;
 
         protected override void Awake()
         {
             base.Awake();
-            m_GameTimer = 0.0f;
+            skillSetter.MakeAndSetSkills();
             Time.timeScale = 0;
+            StartCoroutine(co_GameStartCount());
         }
 
         private void Update()
         {
             m_GameTimer += Time.unscaledDeltaTime;
-            if (m_GameTimer >= 5)
+        }
+
+        private IEnumerator co_GameStartCount()
+        {
+            var time = m_GameStartCount;
+            while (time > 0)
             {
-                Time.timeScale = 1;
-                gameStartEvent?.Invoke(true);
+                time -= Time.unscaledDeltaTime;
+                yield return null;
             }
+            Time.timeScale = 1;
+            gameStartEvent?.Invoke(true);
         }
     }
 }

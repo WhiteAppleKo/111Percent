@@ -123,6 +123,7 @@ MonoBehaviour:
   baseArrowDamage: 5
   searchRadius: 0
   isAreaOfEffect: 0
+  coolTime: 1
   m_OverlapCapacity: 32
 --- !u!58 &-8030337709134909693
 CircleCollider2D:

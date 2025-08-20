@@ -63,10 +63,14 @@ namespace _02._Scripts.EnemyScripts
             float randomValue = Random.Range(0.0f, m_TotalWeight);
             if (randomValue < weight)
             {
+                isMoving = true;
+                animator.SetBool("isMoving", true);
                 ChangeState<MoveState>();
             }
             else
             {
+                isMoving = false;
+                animator.SetBool("isMoving", false);
                 ChangeState<AttackState>();
             }
         }

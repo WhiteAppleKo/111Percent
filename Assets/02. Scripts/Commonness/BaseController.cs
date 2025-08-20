@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,12 +9,15 @@ namespace _02._Scripts.Commonness
     public class BaseController : MonoBehaviour
     {
         public Text text;
+        public Animator animator;
         public ClampInt Health { get; private set; }
         public BaseController self;
+        public BaseController enemy;
         public NonAttackSkill.NonAttackSkill nonAttackSkill;
         public BaseBow Bow { get; private set; }
         public int maxHealth;
-        public bool isMoving = false;
+        public Action<bool> onMove;
+        public bool isMoving;
         public bool haveBow;
         public bool isTotem;
         
@@ -44,6 +48,10 @@ namespace _02._Scripts.Commonness
         {
             InitializeStatus();
             Bow = GetComponentInChildren<BaseBow>();
+            if (animator != null)
+            {
+                Bow.animator = animator;
+            }
             SetNonAttackSkills();
             self = this;
         }
@@ -61,16 +69,28 @@ namespace _02._Scripts.Commonness
         private void OnEnable()
         {
             Health.Events.onMinReached += Die;
+            onMove += SetMoveTrigger;
         }
 
         private void OnDisable()
         {
             Health.Events.onMinReached -= Die;
+            onMove -= SetMoveTrigger;
+        }
+        
+        private void SetMoveTrigger(bool isMoving)
+        {
+            if (animator == null)
+            {
+                return;
+            }
+            animator?.SetBool("isMoving", isMoving);
         }
         
         private void Die(int prev, int current)
         {
-            Debug.Log($"{name} 사망");
+            animator.SetBool("Die", true);
+            enemy.animator.SetBool("Victory", true);
         }
         private void MoveAsset1()
         {
@@ -128,13 +148,13 @@ namespace _02._Scripts.Commonness
         {
             nonAttackSkill.ActiveSkill();
         }
-        private void CoolDown(float cooldown)
+        protected void CoolDown(float cooldown)
         {
             StartCoroutine(co_CoolDown(cooldown));
         }
         
 
-        private IEnumerator co_CoolDown(float cooldown)
+        protected virtual IEnumerator co_CoolDown(float cooldown)
         {
             nonAttackSkill.isUsable = false;
             var time = cooldown;
@@ -169,6 +189,7 @@ namespace _02._Scripts.Commonness
             {
                 if (Bow.skills[0].isUsable)
                 {
+                    animator?.SetTrigger("isAttack");
                     Bow.Attack(this, Bow.skills[0]);
                 }
             }

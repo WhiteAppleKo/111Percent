@@ -26,7 +26,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
         {
             arrow = GetComponent<Arrow.Arrow>();
             attackData = Data.AttackDataDict[attackType];
-            attackData.attackCooldown *= baseAttackSpeed * skillCooldown;
+            attackData.attackCooldown = baseAttackSpeed * skillCooldown * arrow.coolTime * attackData.attackCooldown;
             this.targetPlatform  = targetPlatform;
             targetTag = tag;
             isUsable = true;

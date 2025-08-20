@@ -1247,9 +1247,9 @@ MonoBehaviour:
   - {fileID: 244638127}
   - {fileID: 513635344}
   arrows:
-  - {fileID: -5473868929261714773, guid: a6a7718237fae8b4fbd1c717b5879038, type: 3}
-  - {fileID: 2764520631431860657, guid: 5a4d334084880cd4798d86f6bc44d405, type: 3}
-  - {fileID: 5647202871171864707, guid: 407ac7afb6307da48bacfa937d53438e, type: 3}
+  - {fileID: 2034532990252184017, guid: be26b12aa0a21644c8a4bb06806f3fac, type: 3}
+  - {fileID: 2764520631431860657, guid: 1a2eba8919bc373429c887a58483a535, type: 3}
+  - {fileID: 5647202871171864707, guid: 30b2d52f16c427f47b9c66eed3951106, type: 3}
 --- !u!1 &513635342
 GameObject:
   m_ObjectHideFlags: 0

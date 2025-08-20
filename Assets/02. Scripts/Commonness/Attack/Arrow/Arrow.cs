@@ -10,6 +10,8 @@ namespace _02._Scripts.Commonness.Attack.Arrow
         public float baseArrowDamage;
         public float searchRadius;
         public bool isAreaOfEffect = true;
+        public float coolTime;
+        public Sprite sprite;
         [FormerlySerializedAs("overlapCapacity")] [SerializeField] 
         int m_OverlapCapacity = 32;
         private Skill m_SkillType;

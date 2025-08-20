@@ -11,11 +11,13 @@ namespace _02._Scripts.Commonness.Attack.SkillType
         private float m_Time;
         private Vector2 m_LastVelocity;
         private Arrow.Arrow m_CurrentArrow;
+        public Quaternion spawnRot;
 
         private void Awake()
         {
             attackType = Data.EAttackType.Bezier;
             attackData = Data.AttackDataDict[attackType];
+            spawnRot = transform.rotation;
         }
         private void Initialize(Vector2 start, Vector2 control, Vector2 end)
         {
@@ -57,7 +59,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
                 {
                     m_LastVelocity = vel.normalized;   // ← 진행 방향 기록
                     float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0, 0, angle);
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward) * spawnRot;
                 }
 
             }else
@@ -74,7 +76,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
             Vector2 controlPoint = (start + end) * 0.5f;
             controlPoint.y += 10f;
 
-            var proj = Instantiate(prefab, start, Quaternion.identity);
+            var proj = Instantiate(prefab, start, prefab.transform.rotation);
             proj.arrow = proj.GetComponent<Arrow.Arrow>();
             proj.arrow.currentArrowDamage = proj.attackData.attackDamage * proj.arrow.baseArrowDamage;
             proj.Initialize(start, controlPoint, end);
