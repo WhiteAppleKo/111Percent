@@ -63,6 +63,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
                     var finalEnd = m_FinalEnd;
                     finalEnd.x -= randomX;
                     projectile.Initialize(m_MiddlePoint, finalEnd);
+                    projectile.m_CurrentArrow = projectile.arrow;
                 }
                 Initialize(m_MiddlePoint, m_FinalEnd);
                 m_Duration *= 0.8f; // 원하는 만큼 가속/감속

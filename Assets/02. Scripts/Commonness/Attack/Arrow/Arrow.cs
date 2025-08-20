@@ -53,19 +53,9 @@ namespace _02._Scripts.Commonness.Attack.Arrow
             for (int i = 0; i < count; i++)
             {
                 var col = m_Hits[i];
-                if (!col)
+                if (col.CompareTag(targetTag))
                 {
-                    continue;
-                }
-
-                if (!col.CompareTag(targetTag))
-                {
-                    continue;
-                }
-
-                hitBaseController = col.GetComponent<BaseController>();
-                if (!hitBaseController) { 
-                    continue; 
+                    hitBaseController = col.GetComponent<BaseController>();
                 }
             }
         }

@@ -11,8 +11,10 @@ namespace _02._Scripts
         // 0번 플레이어 1번 에너미
         public BaseController[] controllers;
         private float m_GameTimer;
-        private void Awake()
+
+        protected override void Awake()
         {
+            base.Awake();
             m_GameTimer = 0.0f;
             Time.timeScale = 0;
         }

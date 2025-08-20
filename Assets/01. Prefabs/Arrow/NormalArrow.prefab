@@ -102,10 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPlatform: PlayerPlatform
   targetTag: Player
-  attackType: 0
   projectileSpeed: 5
   skillCooldown: 1
-  isUsable: 1
+  isUsable: 0
   arrow: {fileID: 2034532990252184017}
   prefab: {fileID: -3680187824165235251}
 --- !u!114 &2034532990252184017
@@ -175,7 +174,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

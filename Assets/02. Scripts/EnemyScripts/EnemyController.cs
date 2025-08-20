@@ -16,7 +16,6 @@ namespace _02._Scripts.EnemyScripts
         [SerializeField] 
         private float m_TotalWeight = 100.0f;
         private bool m_ReadySkill;
-        private bool m_StateDone = false;
 
         private void Start()
         {

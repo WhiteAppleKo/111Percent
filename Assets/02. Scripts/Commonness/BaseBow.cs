@@ -12,7 +12,7 @@ namespace _02._Scripts.Commonness
         public float baseAttackSpeed;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
-
+        
         protected string targetPlatform;
         
         private float m_AttackTime = 0;
@@ -39,6 +39,12 @@ namespace _02._Scripts.Commonness
             skill.CanFire(m_FirePoint, currentTarget);
             m_AttackTime = 0;
             StartCoroutine(co_CoolDown(skill));
+        }
+
+        public void TargetSetting(BaseController target)
+        {
+            currentTarget = target;
+            SkillInitialize();
         }
         
         

@@ -12,10 +12,5 @@ namespace _02._Scripts.Player_Control
             targetPlatform = "EnemyPlatform";
             base.Start();
         }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
     }
 }

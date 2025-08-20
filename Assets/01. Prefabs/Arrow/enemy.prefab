@@ -138,7 +138,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -162,12 +162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fb4a50f05e2464780571dfb188b6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentArrowDamage: 0
+  currentArrowDamage: 1
   baseArrowDamage: 1
   searchRadius: 0
   isAreaOfEffect: 0
   m_OverlapCapacity: 32
-  effectDuration: 3
+  effectDuration: 1
 --- !u!114 &-3431844112622426777
 MonoBehaviour:
   m_ObjectHideFlags: 0

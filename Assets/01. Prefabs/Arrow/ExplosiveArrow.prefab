@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4328939607650639096}
   - component: {fileID: 8685896414962917672}
-  - component: {fileID: -5927257395995744919}
+  - component: {fileID: 7435253375582763256}
   - component: {fileID: 2764520631431860657}
   - component: {fileID: 5674287777917940160}
   - component: {fileID: 2974675617409752082}
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5927257395995744919
+--- !u!114 &7435253375582763256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,17 +97,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 9220806614289694997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
+  m_Script: {fileID: 11500000, guid: af94e1818c360bc4f8c9fe3e825ef12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlatform: PlayerPlatform
   targetTag: Player
-  attackType: 0
-  projectileSpeed: 5
-  skillCooldown: 3
+  projectileSpeed: 15
+  skillCooldown: 2
   isUsable: 0
   arrow: {fileID: 2764520631431860657}
-  prefab: {fileID: -5927257395995744919}
+  prefab: {fileID: 7435253375582763256}
+  separatedCount: 10
 --- !u!114 &2764520631431860657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ea20ea0daa92c4aab87b65dfc47c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentArrowDamage: 0
   baseArrowDamage: 2
-  searchRadius: 10
+  searchRadius: 3
   isAreaOfEffect: 1
   m_OverlapCapacity: 32
 --- !u!50 &5674287777917940160
@@ -139,7 +140,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

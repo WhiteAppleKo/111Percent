@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9016751547506772621}
   - component: {fileID: 1962306671750525190}
-  - component: {fileID: -3680187824165235251}
-  - component: {fileID: 2034532990252184017}
   - component: {fileID: -8030337709134909693}
   - component: {fileID: -4566020673470557003}
+  - component: {fileID: -5473868929261714773}
   m_Layer: 0
   m_Name: NormalArrow
   m_TagString: Untagged
@@ -88,43 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3680187824165235251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2447819838512377370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlatform: PlayerPlatform
-  targetTag: Player
-  attackType: 0
-  projectileSpeed: 5
-  skillCooldown: 1
-  isUsable: 1
-  arrow: {fileID: 2034532990252184017}
-  prefab: {fileID: -3680187824165235251}
---- !u!114 &2034532990252184017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2447819838512377370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a380ec457b8e7db49b32e3953c95605b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentArrowDamage: 0
-  baseArrowDamage: 5
-  searchRadius: 0
-  isAreaOfEffect: 0
-  m_OverlapCapacity: 32
 --- !u!58 &-8030337709134909693
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +137,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -187,3 +149,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5473868929261714773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447819838512377370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a380ec457b8e7db49b32e3953c95605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentArrowDamage: 0
+  baseArrowDamage: 1
+  searchRadius: 0
+  isAreaOfEffect: 0
+  m_OverlapCapacity: 32

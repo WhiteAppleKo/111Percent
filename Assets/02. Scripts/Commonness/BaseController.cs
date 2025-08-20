@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Commonness
 {
     public class BaseController : MonoBehaviour
     {
+        public Text text;
         public ClampInt Health { get; private set; }
         public BaseController self;
         public NonAttackSkill.NonAttackSkill nonAttackSkill;
@@ -13,6 +15,7 @@ namespace _02._Scripts.Commonness
         public int maxHealth;
         public bool isMoving = false;
         public bool haveBow;
+        public bool isTotem;
         
         public void TakeDamage(int damage)
         {
@@ -40,14 +43,19 @@ namespace _02._Scripts.Commonness
         protected virtual void Awake()
         {
             InitializeStatus();
-            SetNonAttackSkills();
             Bow = GetComponentInChildren<BaseBow>();
+            SetNonAttackSkills();
+            self = this;
         }
 
         protected virtual void InitializeStatus()
         {
             self = this;
             Health = new ClampInt(min: 0, max: maxHealth, initial: maxHealth);
+            if (isTotem == false)
+            {
+                text.text = Health.Current.ToString();
+            }
         }
 
         private void OnEnable()
@@ -81,9 +89,22 @@ namespace _02._Scripts.Commonness
             myPos.x += -dir.x;
             transform.position = myPos;
         }
+        
+        private void MoveAsset3(float f)
+        {
+            Vector2 dir = Bow.currentTarget.transform.position - transform.position;
+            dir.Normalize();
+            var myPos = transform.position;
+            myPos.x += -dir.x * 2;
+            transform.position = myPos;
+        }
 
         private void SetMoveAsset()
         {
+            if (isTotem)
+            {
+                return;
+            }
             if (Bow.skills[1] == null)
             {
                 return;
@@ -100,6 +121,7 @@ namespace _02._Scripts.Commonness
             }
             nonAttackSkill.SkillSet(Bow.currentTarget, self);
             nonAttackSkill.onUsed += CoolDown;
+            nonAttackSkill.onUsed += MoveAsset3;
         }
 
         public void ActiveNonAttackSkill()
@@ -110,6 +132,7 @@ namespace _02._Scripts.Commonness
         {
             StartCoroutine(co_CoolDown(cooldown));
         }
+        
 
         private IEnumerator co_CoolDown(float cooldown)
         {
@@ -128,22 +151,20 @@ namespace _02._Scripts.Commonness
         {
             if (haveBow == false)
             {
-                Bow.gameObject.SetActive(false);
+                return;
             }
-            else
-            {
-                Bow.gameObject.SetActive(true);
-            }
+            
             if (Bow != null && m_IsSetMoveAsset == false)
             {
+                if (isTotem)
+                {
+                    m_IsSetMoveAsset = true;
+                    return;
+                }
                 SetMoveAsset();
                 m_IsSetMoveAsset = true;
             }
-
-            if (nonAttackSkill != null)
-            {
-                SetNonAttackSkills();
-            }
+            
             if(isMoving == false)
             {
                 if (Bow.skills[0].isUsable)

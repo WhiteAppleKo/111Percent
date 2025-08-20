@@ -62,7 +62,7 @@ namespace _02._Scripts.Commonness.Attack.SkillType
 
             }else
             {
-                transform.Translate(m_LastVelocity * (projectileSpeed * Time.deltaTime));
+                transform.position += (Vector3)(m_LastVelocity * (float)(projectileSpeed * 1.5 * Time.deltaTime));
             }
         }
         
