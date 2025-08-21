@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2764520631431860657}
   - component: {fileID: 5674287777917940160}
   - component: {fileID: 2974675617409752082}
-  - component: {fileID: -4619918014060228716}
+  - component: {fileID: -7682931035858220930}
   m_Layer: 0
   m_Name: Explosive
   m_TagString: Untagged
@@ -169,7 +169,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-4619918014060228716
+--- !u!114 &-7682931035858220930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,14 +178,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9220806614289694997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f2bbda17e88654cb07a6c6f36e14c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 19574085a7309d44ba2b10a6d3ea48ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlatform: EnemyPlatform
   targetTag: Enemy
-  projectileSpeed: 7.5
-  skillCooldown: 1.5
+  projectileSpeed: 5
+  skillCooldown: 1
   isUsable: 1
   arrow: {fileID: 2764520631431860657}
-  prefab: {fileID: -4619918014060228716}
+  prefab: {fileID: -7682931035858220930}
   spawnRot: {x: 0, y: 0, z: 0, w: 0}

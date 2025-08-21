@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/00.Scenes/01. Skill Choice Scene.unity
     guid: bd916169cae3ab542956c87828d2da65
   - enabled: 1
-    path: Assets/00.Scenes/InGame Test Scene.unity
+    path: Assets/00.Scenes/02.InGame Scene.unity
     guid: 7f441df03e4b58745b1d72d8720babef
   m_configObjects: {}

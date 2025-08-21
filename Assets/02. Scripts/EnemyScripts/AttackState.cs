@@ -12,16 +12,21 @@ namespace _02._Scripts.EnemyScripts
     {
         public float attackTime;
         private List<Skill> m_UsableSkills;
+        private Coroutine m_SelectAttackCo;
 
         public override void Enter()
         {
-            StartCoroutine(co_SelectAttack());
+            m_SelectAttackCo = StartCoroutine(co_SelectAttack());
         }
 
         public override void Exit()
         {
             Controller.ReInitializeWeight();
-            StopCoroutine(co_SelectAttack());
+            if (m_SelectAttackCo != null)
+            {
+                StopCoroutine(m_SelectAttackCo);
+                m_SelectAttackCo = null;
+            }
         }
 
         private IEnumerator co_SelectAttack()

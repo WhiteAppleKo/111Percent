@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2034532990252184017}
   - component: {fileID: -8030337709134909693}
   - component: {fileID: -4566020673470557003}
-  - component: {fileID: -5070481597027413466}
+  - component: {fileID: 3825884194764952588}
   m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentArrowDamage: 0
-  baseArrowDamage: 100
+  baseArrowDamage: 2
   searchRadius: 0
   isAreaOfEffect: 0
   coolTime: 1
@@ -169,7 +169,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-5070481597027413466
+--- !u!114 &3825884194764952588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
   targetTag: Enemy
   projectileSpeed: 5
   skillCooldown: 1
-  isUsable: 1
+  isUsable: 0
   arrow: {fileID: 2034532990252184017}
-  prefab: {fileID: -5070481597027413466}
+  prefab: {fileID: 3825884194764952588}
   spawnRot: {x: 0, y: 0, z: 0, w: 0}

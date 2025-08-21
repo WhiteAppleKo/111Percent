@@ -11,6 +11,7 @@ namespace _02._Scripts.Commonness.Attack
         public SkillSetDataPrefab prefab;
         public Dropdown[] dropdowns;
         public Arrow.Arrow[] arrows;
+
         [Serializable]
         public class Cautionpanel
         {
@@ -36,6 +37,7 @@ namespace _02._Scripts.Commonness.Attack
             {
                 prefab.skillSets[i].arrow = null;
             }
+
             m_CautionText = "모든 화살과 무빙 에셋을 한번 씩은 조합 해야 합니다. \n 아래는 현재 스킬 조합 목록 입니다.";
         }
 
@@ -44,7 +46,7 @@ namespace _02._Scripts.Commonness.Attack
             var skill = new SkillSetDataPrefab.SkillSet();
             skill.arrow = arrows[dropdowns[0].value];
             skill.attackType = (Data.EAttackType)dropdowns[1].value;
-            skill.buttonNumber =  dropdowns[2].value;
+            skill.buttonNumber = dropdowns[2].value;
             prefab.skillSets[skill.buttonNumber] = skill;
 
             skillViews[dropdowns[2].value].arrow.sprite = dropdowns[0].options[dropdowns[0].value].image;
@@ -53,7 +55,7 @@ namespace _02._Scripts.Commonness.Attack
 
         public void SetCaution(bool isOpen)
         {
-            
+
             cautionPanel.panel.SetActive(isOpen);
             cautionPanel.text.text = m_CautionText;
         }
@@ -71,12 +73,12 @@ namespace _02._Scripts.Commonness.Attack
             {
                 isfail = true;
             }
-            
+
             if (tempArrows.Contains(arrows[1]) == false)
             {
                 isfail = true;
             }
-            
+
             if (tempArrows.Contains(arrows[2]) == false)
             {
                 isfail = true;
@@ -86,16 +88,17 @@ namespace _02._Scripts.Commonness.Attack
             {
                 return false;
             }
+
             return true;
         }
+
         public void LoadScene()
         {
             if (CheckSelectAllArrow() == false)
             {
-                SetCaution(true);
                 return;
             }
-            
+
             for (int i = 0; i < prefab.skillSets.Length; i++)
             {
                 if (prefab.skillSets[i] == null)
@@ -104,7 +107,13 @@ namespace _02._Scripts.Commonness.Attack
                     return;
                 }
             }
+
             SceneManager.LoadScene(1);
+        }
+
+        public void ShowCautionPanel()
+        {
+            SetCaution(true);
         }
     }
 }

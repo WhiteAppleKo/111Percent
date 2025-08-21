@@ -18,6 +18,11 @@ namespace _02._Scripts.UI
             bc.Health.Events.onValueChanged += ChangeValue;
             m_Slider = GetComponent<Slider>();
             m_Text = GetComponentInChildren<Text>();
+            var slider = GetComponent<Slider>();
+            slider.interactable = false;     // 사용자는 못 만짐
+            var cb = slider.colors;
+            cb.disabledColor = cb.normalColor;  // 비활성화 색을 일반색으로
+            slider.colors = cb;
         }
 
         private void OnDisable()

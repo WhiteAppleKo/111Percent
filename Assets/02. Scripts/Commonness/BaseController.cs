@@ -22,7 +22,6 @@ namespace _02._Scripts.Commonness
         public bool isMoving;
         public bool haveBow;
         public bool isTotem;
-        
         public void TakeDamage(int damage)
         {
             Health.Decrease(damage);
@@ -50,6 +49,7 @@ namespace _02._Scripts.Commonness
         {
             InitializeStatus();
             Bow = GetComponentInChildren<BaseBow>();
+            Bow.currentTarget = enemy;
             if (animator != null)
             {
                 Bow.animator = animator;
@@ -66,16 +66,76 @@ namespace _02._Scripts.Commonness
                 text.text = Health.Current.ToString();
             }
         }
-
+        private bool _eventsBound;
+        private Coroutine _waitBindCo;
         protected virtual void OnEnable()
         {
-            GameManager.Instance.gameStartEvent += SetEvents;
+            TryBindGameStartEvent();
         }
 
-        /*protected virtual void OnDisable()
+        private void TryBindGameStartEvent()
         {
+            // 이미 묶였으면 중복 방지
+            if (_eventsBound) return;
+
+            // GameManager가 아직 없으면 기다렸다가 재시도
+            if (GameManager.Instance == null)
+            {
+                if (_waitBindCo == null)
+                    _waitBindCo = StartCoroutine(Co_WaitAndBind());
+                return;
+            }
+            
             GameManager.Instance.gameStartEvent -= SetEvents;
-        }*/
+            GameManager.Instance.gameStartEvent += SetEvents;
+            _eventsBound = true;
+        }
+        
+        private IEnumerator Co_WaitAndBind()
+        {
+            // 다음 프레임/몇 프레임 정도만 기다렸다가 Instance 생기면 구독
+            while (GameManager.Instance == null)
+                yield return null;
+
+            _waitBindCo = null;
+            TryBindGameStartEvent();
+        }
+        
+        private void UnbindGameStartEvent()
+        {
+            if (!_eventsBound) return;
+            if (GameManager.Instance != null)
+                GameManager.Instance.gameStartEvent -= SetEvents;
+            _eventsBound = false;
+        }
+        protected virtual void OnDisable()
+        {
+            UnbindGameStartEvent();          // gameStartEvent 해제 (대기 코루틴도 Stop)
+            UnsetMoveAsset();                // onSkillUsed 해제
+            UnsetNonAttackSkills();          // nonAttackSkill.onUsed 해제
+
+            if (Health?.Events != null)      // 내 체력 이벤트 해제
+                Health.Events.onMinReached -= Die;
+
+            if (enemy?.Health?.Events != null) // 상대 체력 이벤트 해제
+                enemy.Health.Events.onMinReached -= Victory;
+
+            onMove -= SetMoveTrigger;
+
+            if (_waitBindCo != null) { StopCoroutine(_waitBindCo); _waitBindCo = null; }
+
+            // 다음 라운드 대비 초기화
+            if (Bow != null) Bow.currentTarget = null;
+            m_IsSetMoveAsset = false;
+        }
+        
+        private void UnsetMoveAsset()
+        {
+            if (Bow == null || Bow.skills == null || Bow.skills.Length <= 2) return;
+
+            if (Bow.skills[1] != null) Bow.skills[1].onSkillUsed -= MoveAsset1;
+            if (Bow.skills[2] != null) Bow.skills[2].onSkillUsed -= MoveAsset2;
+        }
 
         private void SetEvents(bool isGameStart)
         {
@@ -99,6 +159,9 @@ namespace _02._Scripts.Commonness
             StopAllCoroutines();
             animator.SetBool("Die", true);
             haveBow = false;
+            Bow.skills[1].onSkillUsed -= MoveAsset1;
+            Bow.skills[2].onSkillUsed -= MoveAsset2;
+            UnsetNonAttackSkills();
         }
 
         protected virtual void Victory(int  prev, int current)
@@ -107,6 +170,13 @@ namespace _02._Scripts.Commonness
             StopAllCoroutines();
             animator.SetBool("Victory", true);
             haveBow = false;
+            Bow.skills[1].onSkillUsed -= MoveAsset1;
+            Bow.skills[2].onSkillUsed -= MoveAsset2;
+            UnsetNonAttackSkills();
+        }
+        protected virtual void OnDestroy()
+        {
+            UnsetNonAttackSkills(); // 씬 언로드/즉시 파괴 케이스까지 커버
         }
         private void MoveAsset1()
         {
@@ -160,6 +230,13 @@ namespace _02._Scripts.Commonness
             nonAttackSkill.SkillSet(Bow.currentTarget, self, decoyArrow, Bow.targetPlatform);
             nonAttackSkill.onUsed += CoolDown;
             nonAttackSkill.onUsed += MoveAsset3;
+        }
+        
+        private void UnsetNonAttackSkills()
+        {
+            if (nonAttackSkill == null) return;
+            nonAttackSkill.onUsed -= CoolDown;
+            nonAttackSkill.onUsed -= MoveAsset3;
         }
 
         public void ActiveNonAttackSkill()

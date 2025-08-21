@@ -28,6 +28,10 @@ namespace _02._Scripts.Commonness.NonAttackSkill
 
         protected override void SkillEffect()
         {
+            if (isUsable == false)
+            {
+                return;
+            }
             onUsed?.Invoke(cooldown);
             var dir = (target.transform.position - self.transform.position).normalized;
             var spawnpos = self.transform.position;
