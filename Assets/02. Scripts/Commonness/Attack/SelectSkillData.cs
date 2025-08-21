@@ -71,6 +71,7 @@ namespace _02._Scripts.Commonness.Attack
                 var playerBow = playerController.Bow as PlayerBow;
                 playerBow.coolTimeAnnounce[i - 1].image.sprite = skill.sprite;
             }
+            playerController.SetNonAttackSkills();
         }
     }
 }

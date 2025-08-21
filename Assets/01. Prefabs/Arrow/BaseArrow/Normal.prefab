@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2034532990252184017}
   - component: {fileID: -8030337709134909693}
   - component: {fileID: -4566020673470557003}
-  - component: {fileID: 8945428868941020820}
+  - component: {fileID: -4922087820179813152}
   m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
@@ -101,11 +101,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentArrowDamage: 0
-  baseArrowDamage: 5
+  baseArrowDamage: 2
   searchRadius: 0
   isAreaOfEffect: 0
   coolTime: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 83680e04f149e5645b6d7749b9f764fe, type: 3}
   m_OverlapCapacity: 32
 --- !u!58 &-8030337709134909693
 CircleCollider2D:
@@ -169,7 +169,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8945428868941020820
+--- !u!114 &-4922087820179813152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,5 +187,5 @@ MonoBehaviour:
   skillCooldown: 1
   isUsable: 0
   arrow: {fileID: 2034532990252184017}
-  prefab: {fileID: 8945428868941020820}
+  prefab: {fileID: -4922087820179813152}
   spawnRot: {x: 0, y: 0, z: 0, w: 0}

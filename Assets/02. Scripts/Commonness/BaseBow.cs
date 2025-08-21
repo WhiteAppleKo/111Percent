@@ -9,34 +9,32 @@ namespace _02._Scripts.Commonness
 {
     public abstract class BaseBow : MonoBehaviour
     {
+        public BaseController self;
         public BaseController currentTarget;
         public float baseAttackSpeed;
         // 0번 기본 공격 이외 나머지 스킬
         public Skill[] skills;
         public string targetPlatform;
         public Animator animator;
-        
         private Transform m_FirePoint;
         private bool m_UseSkill;
 
         protected virtual void Start()
         {
             SkillInitialize();
+            self = GetComponentInParent<BaseController>();
             m_FirePoint = gameObject.transform;
         }
         
         public void Attack(BaseController attacker, Skill skill)
         {
+            if (self.haveBow == false)
+            {
+                return;
+            }
             skill.CanFire(m_FirePoint, currentTarget);
             StartCoroutine(co_CoolDown(skill));
         }
-
-        public void TargetSetting(BaseController target)
-        {
-            currentTarget = target;
-            SkillInitialize();
-        }
-
         protected int? FindSkillIndex(Skill skill)
         {
             for(int i = 1; i < skills.Length; i++)

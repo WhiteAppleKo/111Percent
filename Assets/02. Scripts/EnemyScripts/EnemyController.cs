@@ -11,7 +11,7 @@ namespace _02._Scripts.EnemyScripts
     {
         public BaseState[] states;
         public float weight;
-        
+        public GameObject stateParent;
         private BaseState m_CurrentState;
         [SerializeField] 
         private float m_TotalWeight = 100.0f;
@@ -38,10 +38,18 @@ namespace _02._Scripts.EnemyScripts
             base.Awake();
             states = GetComponentsInChildren<BaseState>();
         }
+        
 
-        protected override void InitializeStatus()
+        protected override void Die(int  prev, int current)
         {
-            base.InitializeStatus();
+            base.Die(prev, current);
+            stateParent.gameObject.SetActive(false);
+        }
+
+        protected override void Victory(int prev, int current)
+        {
+            base.Victory(prev, current);
+            stateParent.gameObject.SetActive(false);
         }
 
         public void ReInitializeWeight()

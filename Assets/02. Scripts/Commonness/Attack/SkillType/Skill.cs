@@ -22,6 +22,11 @@ namespace _02._Scripts.Commonness.Attack.SkillType
             SkillSetting(baseAttackSpeed, targetPlatform, tag);
         }
         
+        public Skill Clone()
+        {
+            return (Skill)this.MemberwiseClone(); // 얕은 복사
+        }
+        
         protected virtual void SkillSetting(float baseAttackSpeed, string targetPlatform, string tag)
         {
             arrow = GetComponent<Arrow.Arrow>();

@@ -79,7 +79,21 @@ namespace _02._Scripts.Player_Control
             base.Update();
             Move(m_MoveValue);
         }
-        
+
+        public GameObject losePanel;
+        public GameObject winPanel;
+        protected override void Die(int prev, int current)
+        {
+            base.Die(prev, current);
+            losePanel.SetActive(true);
+        }
+
+        protected override void Victory(int prev, int current)
+        {
+            base.Victory(prev, current);
+            winPanel.SetActive(true);
+        }
+
         protected override IEnumerator co_CoolDown(float cooldown)
         {
             nonAttackSkill.isUsable = false;

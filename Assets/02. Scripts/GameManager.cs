@@ -4,6 +4,7 @@ using _02._Scripts.Commonness;
 using _02._Scripts.Commonness.Attack;
 using Singleton;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _02._Scripts
 {
@@ -39,6 +40,11 @@ namespace _02._Scripts
             }
             Time.timeScale = 1;
             gameStartEvent?.Invoke(true);
+        }
+
+        public void LoadTitle()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

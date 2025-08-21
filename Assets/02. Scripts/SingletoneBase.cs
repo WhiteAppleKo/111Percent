@@ -31,7 +31,7 @@ namespace Singleton
                         {
                             var singletonObject = new GameObject(typeof(T).Name);
                             instance = singletonObject.AddComponent<T>();
-                            DontDestroyOnLoad(singletonObject);
+                            //DontDestroyOnLoad(singletonObject);
                         }
 
                         (instance as SingletonBase<T>)?.OnInitialize();
@@ -48,7 +48,7 @@ namespace Singleton
             if (instance == null)
             {
                 instance = this as T;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
 
                 OnInitialize();
                 isInitialized = true;

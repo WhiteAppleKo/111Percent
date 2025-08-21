@@ -104,9 +104,10 @@ MonoBehaviour:
   targetTag: Player
   projectileSpeed: 5
   skillCooldown: 1
-  isUsable: 0
+  isUsable: 1
   arrow: {fileID: 2034532990252184017}
   prefab: {fileID: -3680187824165235251}
+  spawnRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &2034532990252184017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,10 +121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentArrowDamage: 0
-  baseArrowDamage: 5
+  baseArrowDamage: 2
   searchRadius: 0
   isAreaOfEffect: 0
   coolTime: 1
+  sprite: {fileID: 0}
   m_OverlapCapacity: 32
 --- !u!58 &-8030337709134909693
 CircleCollider2D:

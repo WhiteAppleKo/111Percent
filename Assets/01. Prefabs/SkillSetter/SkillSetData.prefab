@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSets:
-  - arrow: {fileID: 2034532990252184017, guid: be26b12aa0a21644c8a4bb06806f3fac, type: 3}
+  - arrow: {fileID: 0}
     buttonNumber: 0
     attackType: 0
-  - arrow: {fileID: 5647202871171864707, guid: 30b2d52f16c427f47b9c66eed3951106, type: 3}
+  - arrow: {fileID: 0}
     buttonNumber: 1
     attackType: 1
-  - arrow: {fileID: 2764520631431860657, guid: 1a2eba8919bc373429c887a58483a535, type: 3}
+  - arrow: {fileID: 0}
     buttonNumber: 2
     attackType: 2

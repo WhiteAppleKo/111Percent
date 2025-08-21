@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using _02._Scripts.Commonness.Attack.Arrow;
+using _02._Scripts.Commonness.Attack.SkillType;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,7 +54,6 @@ namespace _02._Scripts.Commonness
             {
                 Bow.animator = animator;
             }
-            SetNonAttackSkills();
             self = this;
         }
 
@@ -66,16 +67,21 @@ namespace _02._Scripts.Commonness
             }
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            Health.Events.onMinReached += Die;
-            onMove += SetMoveTrigger;
+            GameManager.Instance.gameStartEvent += SetEvents;
         }
 
-        private void OnDisable()
+        /*protected virtual void OnDisable()
         {
-            Health.Events.onMinReached -= Die;
-            onMove -= SetMoveTrigger;
+            GameManager.Instance.gameStartEvent -= SetEvents;
+        }*/
+
+        private void SetEvents(bool isGameStart)
+        {
+            Health.Events.onMinReached += Die;
+            enemy.Health.Events.onMinReached += Victory;
+            onMove += SetMoveTrigger;
         }
         
         private void SetMoveTrigger(bool isMoving)
@@ -84,13 +90,23 @@ namespace _02._Scripts.Commonness
             {
                 return;
             }
-            animator?.SetBool("isMoving", isMoving);
+            animator.SetBool("isMoving", isMoving);
         }
         
-        private void Die(int prev, int current)
+        protected virtual void Die(int prev, int current)
         {
+            GameManager.Instance.gameStartEvent -= SetEvents;
+            StopAllCoroutines();
             animator.SetBool("Die", true);
-            enemy.animator.SetBool("Victory", true);
+            haveBow = false;
+        }
+
+        protected virtual void Victory(int  prev, int current)
+        {
+            GameManager.Instance.gameStartEvent -= SetEvents;
+            StopAllCoroutines();
+            animator.SetBool("Victory", true);
+            haveBow = false;
         }
         private void MoveAsset1()
         {
@@ -133,13 +149,15 @@ namespace _02._Scripts.Commonness
             Bow.skills[2].onSkillUsed += MoveAsset2;
         }
 
-        private void SetNonAttackSkills()
+        public void SetNonAttackSkills()
         {
             if (nonAttackSkill == null)
             {
                 return;
             }
-            nonAttackSkill.SkillSet(Bow.currentTarget, self);
+
+            Skill decoyArrow = Bow.skills[0].Clone();
+            nonAttackSkill.SkillSet(Bow.currentTarget, self, decoyArrow, Bow.targetPlatform);
             nonAttackSkill.onUsed += CoolDown;
             nonAttackSkill.onUsed += MoveAsset3;
         }
@@ -189,7 +207,7 @@ namespace _02._Scripts.Commonness
             {
                 if (Bow.skills[0].isUsable)
                 {
-                    animator?.SetTrigger("isAttack");
+                    animator.SetTrigger("isAttack");
                     Bow.Attack(this, Bow.skills[0]);
                 }
             }
