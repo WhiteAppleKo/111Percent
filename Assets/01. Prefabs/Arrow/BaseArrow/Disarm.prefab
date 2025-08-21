@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2035642844369560874}
   - component: {fileID: 84802615944692541}
   - component: {fileID: 5647202871171864707}
-  - component: {fileID: 8806040587128418629}
+  - component: {fileID: -7090540837494499652}
   m_Layer: 0
   m_Name: Disarm
   m_TagString: Untagged
@@ -170,7 +170,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 3f28bf609d39ab5438ac4efb02c063a5, type: 3}
   m_OverlapCapacity: 32
   effectDuration: 1
---- !u!114 &8806040587128418629
+--- !u!114 &-7090540837494499652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,8 +186,8 @@ MonoBehaviour:
   targetTag: Enemy
   projectileSpeed: 15
   skillCooldown: 2
-  isUsable: 0
+  isUsable: 1
   arrow: {fileID: 5647202871171864707}
-  prefab: {fileID: 8806040587128418629}
+  prefab: {fileID: -7090540837494499652}
   separatedCount: 10
   spawnRot: {x: 0, y: 0, z: 0, w: 0}
